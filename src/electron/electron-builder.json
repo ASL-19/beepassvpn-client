@@ -1,27 +1,14 @@
 {
-  "files": [
-    "build/electron",
-    "www",
-    "resources/tray",
-    "!node_modules/electron"
-  ],
-  "asarUnpack": [
-    "third_party",
-    "tools"
-  ],
+  "$schema": "https://raw.githubusercontent.com/electron-userland/electron-builder/v23.6.0/packages/app-builder-lib/scheme.json",
+  "files": ["build/electron", "www", "resources/tray", "!node_modules/electron"],
+  "asarUnpack": ["third_party", "tools"],
   "artifactName": "Outline-Client.${ext}",
   "directories": {
     "output": "build/dist"
   },
   "linux": {
-    "target": [
-      "AppImage"
-    ],
-    "files": [
-      "third_party/badvpn/linux",
-      "third_party/shadowsocks-libev/linux",
-      "tools/outline_proxy_controller/dist"
-    ],
+    "target": ["AppImage"],
+    "files": ["build/icons/png", "third_party/outline-go-tun2socks/linux", "tools/outline_proxy_controller/dist"],
     "icon": "build/icons/png",
     "category": "Network"
   },
@@ -32,11 +19,9 @@
         "arch": "ia32"
       }
     ],
-    "files": [
-      "third_party/badvpn/win32",
-      "third_party/shadowsocks-libev/win32"
-    ],
-    "icon": "build/icons/win/icon.ico"
+    "files": ["third_party/outline-go-tun2socks/win32"],
+    "icon": "build/icons/win/icon.ico",
+    "sign": "src/electron/windows/electron_builder_signing_plugin.cjs"
   },
   "nsis": {
     "perMachine": true,

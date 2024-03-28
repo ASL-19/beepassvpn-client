@@ -1,0 +1,14 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "redhat.vscode-yaml",
+    "stkb.rewrap",
+    "streetsidesoftware.code-spell-checker",
+    "styled-components.vscode-styled-components",
+    "stylelint.vscode-stylelint",
+    "vitest.explorer",
+    "yzhang.markdown-all-in-one"
+  ],
+  "unwantedRecommendations": []
+}

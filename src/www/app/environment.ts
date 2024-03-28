@@ -15,12 +15,10 @@
 export interface EnvironmentVariables {
   APP_VERSION: string;
   APP_BUILD_NUMBER: string;
-  BEEPASS_LANDING_PAGE_HEADER_NAME: string;
-  BEEPASS_LANDING_PAGE_ENDPOINT: string;
-  SENTRY_DSN: string;
+  SENTRY_DSN: string|undefined;
 }
 
-// According to http://caniuse.com/#feat=fetch fetch didn't hit iOS Safari
+// According to http://caniuse.com/#feat=fetch fetch didn't land iOS Safari
 // until v10.3 released 3/26/17, so use XMLHttpRequest instead.
 export const onceEnvVars: Promise<EnvironmentVariables> = new Promise((resolve, reject) => {
   const xhr = new XMLHttpRequest();

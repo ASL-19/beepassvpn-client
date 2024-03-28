@@ -13,9 +13,8 @@
 // limitations under the License.
 
 import * as errors from '../model/errors';
-import {ShadowsocksConfig} from '../model/shadowsocks';
 
-import {Tunnel, TunnelStatus} from './tunnel';
+import {Tunnel, TunnelStatus, ShadowsocksSessionConfig} from './tunnel';
 
 // Fake Tunnel implementation for demoing and testing.
 // Note that because this implementation does not emit disconnection events, "switching" between
@@ -23,24 +22,24 @@ import {Tunnel, TunnelStatus} from './tunnel';
 export class FakeOutlineTunnel implements Tunnel {
   private running = false;
 
-  constructor(public config: ShadowsocksConfig, public id: string) {}
+  constructor(public readonly id: string) {}
 
-  private playBroken() {
-    return this.config.name?.toLowerCase().includes('broken');
+  private playBroken(hostname?: string) {
+    return hostname?.toLowerCase().includes('broken');
   }
 
-  private playUnreachable() {
-    return this.config.name?.toLowerCase().includes('unreachable');
+  private playUnreachable(hostname?: string) {
+    return hostname?.toLowerCase().includes('unreachable');
   }
 
-  async start(): Promise<void> {
+  async start(config: ShadowsocksSessionConfig): Promise<void> {
     if (this.running) {
       return;
     }
 
-    if (this.playUnreachable()) {
+    if (this.playUnreachable(config.host)) {
       throw new errors.OutlinePluginError(errors.ErrorCode.SERVER_UNREACHABLE);
-    } else if (this.playBroken()) {
+    } else if (this.playBroken(config.host)) {
       throw new errors.OutlinePluginError(errors.ErrorCode.SHADOWSOCKS_START_FAILURE);
     }
 
@@ -58,11 +57,7 @@ export class FakeOutlineTunnel implements Tunnel {
     return this.running;
   }
 
-  async isReachable(): Promise<boolean> {
-    return !this.playUnreachable();
-  }
-
-  onStatusChange(listener: (status: TunnelStatus) => void): void {
+  onStatusChange(_listener: (status: TunnelStatus) => void): void {
     // NOOP
   }
 }

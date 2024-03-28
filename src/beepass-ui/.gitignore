@@ -1,0 +1,8 @@
+/.packagehash
+/.next/
+/.swc/
+/.yalc/
+/build/
+/node_modules/
+/tsconfig.tsbuildinfo
+/windows-builds

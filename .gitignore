@@ -2,6 +2,7 @@
 .idea
 *.code-workspace
 *.DS_Store
+/output
 /build
 info.txt
 /node_modules
@@ -9,7 +10,6 @@ info.txt
 /plugins
 /www
 /third_party/Potatso/Pods
-/Carthage
 xcuserdata/
 .vs/
 obj/
@@ -20,3 +20,15 @@ tools/OutlineService/OutlineService/bin/*
 *.sw?
 tools/smartdnsblock/bin/*
 !tools/smartdnsblock/bin/*.exe
+beepass-outline-android-release.keystore
+# Non committable files
+.generated
+tsconfig.tsbuildinfo
+environment.json
+keystore.p12
+Outline.apk
+Outline.apks
+universal.apk
+toc.pb
+coverage
+*.env

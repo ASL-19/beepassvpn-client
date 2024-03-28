@@ -14,21 +14,21 @@
   limitations under the License.
 -->
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.beepassvpn.free.vpn.secure" version="1.0.0" android-versionCode="40" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>BeePass VPN</name>
+<widget id="com.beepassvpn.free.vpn.secure" version="1.7.0" android-versionCode="80" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Outline</name>
     <description>
-        BeePass VPN
+        Internet without borders (powered by Shadowsocks)
     </description>
-    <content src="cordova_index.html" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="mailto:*" />
     <preference name="android-minSdkVersion" value="22" />
-    <preference name="android-targetSdkVersion" value="29" />
+    <preference name="android-targetSdkVersion" value="33" />
     <preference name="AndroidLaunchMode" value="singleInstance" />
     <preference name="ShowSplashScreenSpinner" value="false" />
-
+    <preference name="AutoHideSplashScreen" value="false" />
     <!-- Android -->
     <platform name="android">
         <preference name="SplashMaintainAspectRatio" value="true" />
@@ -79,7 +79,9 @@
         <splash density="xxhdpi" src="resources/splashscreen/android/splashscreen_xxhdpi.png" />
         <splash density="xxxhdpi" src="resources/splashscreen/android/splashscreen_xxxhdpi.png" />
 
-        <custom-config-file parent="./application/activity/[@android:name='MainActivity']" target="AndroidManifest.xml">
+        <preference name="AndroidInsecureFileModeEnabled" value="true" />
+
+        <config-file parent="./application/activity/[@android:name='MainActivity']" target="AndroidManifest.xml">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -90,9 +92,21 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="https" android:host="s3.amazonaws.com" android:path="/outline-vpn/invite.html" />
+                <data android:scheme="ssconf" />
             </intent-filter>
-        </custom-config-file>
+            <!-- ASL19: We disable this since automatic intent handling
+            seemingly isn’t allowed on Android 12+ without us being able to
+            verify all of s3.amazonaws.com (which we obviously can’t do!).
+
+            We also don’t have have special handling in the app for parsing the
+            key out of an https invite URL. -->
+            <!-- <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https" android:host="s3.amazonaws.com" android:path="/outline-vpn/invite.html" />
+            </intent-filter> -->
+        </config-file>
     </platform>
 
     <!-- browser -->
@@ -102,7 +116,7 @@
 
     <!-- iOS -->
     <platform name="ios">
-        <preference name="deployment-target" value="11.0" />
+        <preference name="deployment-target" value="12.0" />
         <preference name="scheme" value="app" />
         <preference name="hostname" value="localhost" />
         <preference name="DisallowOverscroll" value="true" />
@@ -148,7 +162,6 @@
         <preference name="AllowWebViewNavigation" value="false" />
         <icon src="resources/icons/osx/icon-16.png" width="16" height="16" />
         <icon src="resources/icons/osx/icon-32.png" width="32" height="32" />
-        <icon src="resources/icons/osx/icon-64.png" width="64" height="64" />
         <icon src="resources/icons/osx/icon-128.png" width="128" height="128" />
         <icon src="resources/icons/osx/icon-256.png" width="256" height="256" />
         <icon src="resources/icons/osx/icon-512.png" width="512" height="512" />

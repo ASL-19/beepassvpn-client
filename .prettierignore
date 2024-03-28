@@ -1,3 +1,7 @@
-/*
-!src/
-**/*.json
+.github/
+apple/
+docs/
+resources/
+third_party/
+tools/
+node_modules/

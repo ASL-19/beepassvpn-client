@@ -12,13 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import {ShadowsocksConfig} from '../../www/model/shadowsocks';
+export interface ShadowsocksSessionConfig {
+  host?: string;
+  port?: number;
+  password?: string;
+  method?: string;
+  prefix?: string;
+}
 
 export const enum TunnelStatus {
   CONNECTED,
   DISCONNECTED,
-  RECONNECTING
+  RECONNECTING,
 }
+
+export type TunnelFactory = (id: string) => Tunnel;
 
 // Represents a VPN tunnel to a Shadowsocks proxy server. Implementations provide native tunneling
 // functionality through cordova.plugins.oultine.Tunnel and ElectronOutlineTunnel.
@@ -26,24 +34,17 @@ export interface Tunnel {
   // Unique instance identifier.
   readonly id: string;
 
-  // Shadowsocks proxy configuration.
-  config: ShadowsocksConfig;
-
   // Connects a VPN, routing all device traffic to a Shadowsocks server as dictated by `config`.
   // If there is another running instance, broadcasts a disconnect event and stops the active
   // tunnel. In such case, restarts tunneling while preserving the VPN.
   // Throws OutlinePluginError.
-  start(): Promise<void>;
+  start(config: ShadowsocksSessionConfig): Promise<void>;
 
   // Stops the tunnel and VPN service.
   stop(): Promise<void>;
 
   // Returns whether the tunnel instance is active.
   isRunning(): Promise<boolean>;
-
-  // Returns whether the proxy server is reachable by attempting to open a TCP socket
-  // to the IP and port specified in `config`.
-  isReachable(): Promise<boolean>;
 
   // Sets a listener, to be called when the tunnel status changes.
   onStatusChange(listener: (status: TunnelStatus) => void): void;

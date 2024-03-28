@@ -12,50 +12,40 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import {ipcRenderer} from 'electron';
-import * as promiseIpc from 'electron-promise-ipc';
-
 import * as errors from '../model/errors';
-import {ShadowsocksConfig} from '../model/shadowsocks';
 
-import {Tunnel, TunnelStatus} from './tunnel';
+import {Tunnel, TunnelStatus, ShadowsocksSessionConfig} from './tunnel';
 
 export class ElectronOutlineTunnel implements Tunnel {
-  private statusChangeListener: ((status: TunnelStatus) => void)|null = null;
+  private statusChangeListener: ((status: TunnelStatus) => void) | null = null;
 
   private running = false;
 
-  constructor(public config: ShadowsocksConfig, public id: string) {
+  constructor(public readonly id: string) {
     // This event is received when the proxy connects. It is mainly used for signaling the UI that
     // the proxy has been automatically connected at startup (if the user was connected at shutdown)
-    ipcRenderer.on(`proxy-connected-${this.id}`, (e: Event) => {
+    window.electron.methodChannel.on(`proxy-connected-${this.id}`, () => {
       this.handleStatusChange(TunnelStatus.CONNECTED);
     });
-
-    ipcRenderer.on(`proxy-reconnecting-${this.id}`, (e: Event) => {
+    window.electron.methodChannel.on(`proxy-reconnecting-${this.id}`, () => {
       this.handleStatusChange(TunnelStatus.RECONNECTING);
     });
   }
 
-  async start() {
+  async start(config: ShadowsocksSessionConfig) {
     if (this.running) {
       return Promise.resolve();
     }
 
-    ipcRenderer.once(`proxy-disconnected-${this.id}`, (e: Event) => {
+    window.electron.methodChannel.once(`proxy-disconnected-${this.id}`, () => {
       this.handleStatusChange(TunnelStatus.DISCONNECTED);
     });
 
-    try {
-      await promiseIpc.send('start-proxying', {config: this.config, id: this.id});
-      this.running = true;
-    } catch (e) {
-      if (typeof e === 'number') {
-        throw new errors.OutlinePluginError(e);
-      } else {
-        throw e;
-      }
+    const err = await window.electron.methodChannel.invoke('start-proxying', {config, id: this.id});
+    if (err != errors.ErrorCode.NO_ERROR) {
+      throw new errors.OutlinePluginError(err);
     }
+    this.running = true;
   }
 
   async stop() {
@@ -64,7 +54,7 @@ export class ElectronOutlineTunnel implements Tunnel {
     }
 
     try {
-      await promiseIpc.send('stop-proxying');
+      await window.electron.methodChannel.invoke('stop-proxying');
       this.running = false;
     } catch (e) {
       console.error(`Failed to stop tunnel ${e}`);
@@ -73,10 +63,6 @@ export class ElectronOutlineTunnel implements Tunnel {
 
   async isRunning(): Promise<boolean> {
     return this.running;
-  }
-
-  isReachable(): Promise<boolean> {
-    return promiseIpc.send('is-reachable', this.config);
   }
 
   onStatusChange(listener: (status: TunnelStatus) => void): void {

@@ -15,13 +15,12 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-import {ShadowsocksConfig} from '../www/model/shadowsocks';
+import {ShadowsocksSessionConfig} from '../www/app/tunnel';
 
 // Format to store a tunnel configuration.
 export interface SerializableTunnel {
   id: string;
-  config: ShadowsocksConfig;
-  isUdpSupported?: boolean;
+  config: ShadowsocksSessionConfig;
 }
 
 // Persistence layer for a single SerializableTunnel.
@@ -43,7 +42,7 @@ export class TunnelStore {
       return Promise.reject(new Error('Cannot save invalid tunnel'));
     }
     return new Promise((resolve, reject) => {
-      fs.writeFile(this.storagePath, JSON.stringify(tunnel), 'utf8', (error) => {
+      fs.writeFile(this.storagePath, JSON.stringify(tunnel), 'utf8', error => {
         if (error) {
           reject(error);
         } else {
@@ -77,7 +76,7 @@ export class TunnelStore {
       if (!fs.existsSync(this.storagePath)) {
         resolve();
       }
-      fs.unlink(this.storagePath, (error) => {
+      fs.unlink(this.storagePath, error => {
         if (error) {
           reject(error);
         } else {
@@ -93,6 +92,6 @@ export class TunnelStore {
     if (!config || !tunnel.id) {
       return false;
     }
-    return config.method && config.password && config.host && config.port && config.name;
+    return config.method && config.password && config.host && config.port;
   }
 }

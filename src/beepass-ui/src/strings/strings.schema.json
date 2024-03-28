@@ -1,0 +1,844 @@
+{
+  "$ref": "#/definitions/Strings",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "AddServerModalStrings": {
+      "additionalProperties": false,
+      "properties": {
+        "serverAccessKeyDetected": {
+          "type": "string"
+        },
+        "serverAccessKeyLabel": {
+          "type": "string"
+        },
+        "serverAdd": {
+          "type": "string"
+        },
+        "serverAddAccessKey": {
+          "type": "string"
+        },
+        "serverAddAlreadyAdded": {
+          "type": "string"
+        },
+        "serverAddIgnore": {
+          "type": "string"
+        },
+        "serverAddInstructions": {
+          "type": "string"
+        },
+        "serverAddInvalid": {
+          "type": "string"
+        },
+        "serverAddNoServersLabel": {
+          "type": "string"
+        },
+        "serverAddZeroStateInstructions": {
+          "type": "string"
+        },
+        "serverCreateYourOwn": {
+          "type": "string"
+        },
+        "serverCreateYourOwnZeroState": {
+          "type": "string"
+        },
+        "serverDetected": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "serverAccessKeyDetected",
+        "serverAccessKeyLabel",
+        "serverAdd",
+        "serverAddAccessKey",
+        "serverAddAlreadyAdded",
+        "serverAddIgnore",
+        "serverAddInstructions",
+        "serverAddInvalid",
+        "serverAddNoServersLabel",
+        "serverAddZeroStateInstructions",
+        "serverCreateYourOwn",
+        "serverCreateYourOwnZeroState",
+        "serverDetected"
+      ],
+      "type": "object"
+    },
+    "AutoConnectModalStrings": {
+      "additionalProperties": false,
+      "properties": {
+        "autoConnectDialogDetail": {
+          "type": "string"
+        },
+        "autoConnectDialogTitle": {
+          "type": "string"
+        },
+        "gotIt": {
+          "type": "string"
+        },
+        "tips": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "autoConnectDialogDetail",
+        "autoConnectDialogTitle",
+        "gotIt",
+        "tips"
+      ],
+      "type": "object"
+    },
+    "EmptyServerStrings": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "emailLinkLabel": {
+          "type": "string"
+        },
+        "heading": {
+          "type": "string"
+        },
+        "installationGuideLink": {
+          "type": "string"
+        },
+        "serverLinksHeading": {
+          "type": "string"
+        },
+        "telegramLinkLabel": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "description",
+        "emailLinkLabel",
+        "heading",
+        "installationGuideLink",
+        "serverLinksHeading",
+        "telegramLinkLabel"
+      ],
+      "type": "object"
+    },
+    "FeedbackPageStrings": {
+      "additionalProperties": false,
+      "properties": {
+        "emailFeedbackInput": {
+          "type": "string"
+        },
+        "feedbackCannotAddServer": {
+          "type": "string"
+        },
+        "feedbackConnection": {
+          "type": "string"
+        },
+        "feedbackGeneral": {
+          "type": "string"
+        },
+        "feedbackInput": {
+          "type": "string"
+        },
+        "feedbackLanguageDisclaimer": {
+          "type": "string"
+        },
+        "feedbackNoServer": {
+          "type": "string"
+        },
+        "feedbackPageTitle": {
+          "type": "string"
+        },
+        "feedbackPerformance": {
+          "type": "string"
+        },
+        "feedbackPrivacy": {
+          "type": "string"
+        },
+        "feedbackSuggestion": {
+          "type": "string"
+        },
+        "feedbackThanks": {
+          "type": "string"
+        },
+        "submit": {
+          "type": "string"
+        },
+        "submitting": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "emailFeedbackInput",
+        "feedbackCannotAddServer",
+        "feedbackConnection",
+        "feedbackGeneral",
+        "feedbackInput",
+        "feedbackLanguageDisclaimer",
+        "feedbackNoServer",
+        "feedbackPageTitle",
+        "feedbackPerformance",
+        "feedbackPrivacy",
+        "feedbackSuggestion",
+        "feedbackThanks",
+        "submit",
+        "submitting"
+      ],
+      "type": "object"
+    },
+    "HeaderChildPageContentStrings": {
+      "additionalProperties": false,
+      "properties": {
+        "backButtonA11yLabel": {
+          "description": "A11y label for the back (to servers page) button.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "backButtonA11yLabel"
+      ],
+      "type": "object"
+    },
+    "HeaderMainPageContentStrings": {
+      "additionalProperties": false,
+      "properties": {
+        "addServersButtonA11yLabel": {
+          "description": "A11y label for the hexagonal “Add servers” button.",
+          "type": "string"
+        },
+        "menuButtonAllyLabel": {
+          "description": "A11y label for the hamburger menu button.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "addServersButtonA11yLabel",
+        "menuButtonAllyLabel"
+      ],
+      "type": "object"
+    },
+    "HeaderNavMenuStrings": {
+      "additionalProperties": false,
+      "properties": {
+        "externalLinksListA11yLabel": {
+          "description": "A11y label for the external links list (Privacy Policy, Terms of Service, Licenses).",
+          "type": "string"
+        },
+        "screensListA11yLabel": {
+          "description": "A11y label for the screens list (Servers, About, Help, and Change Language).",
+          "type": "string"
+        }
+      },
+      "required": [
+        "externalLinksListA11yLabel",
+        "screensListA11yLabel"
+      ],
+      "type": "object"
+    },
+    "LinksGroupButtonStrings": {
+      "additionalProperties": false,
+      "properties": {
+        "emailLink": {
+          "type": "string"
+        },
+        "emailLinkLabel": {
+          "type": "string"
+        },
+        "telegramLink": {
+          "type": "string"
+        },
+        "telegramLinkLabel": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "emailLink",
+        "emailLinkLabel",
+        "telegramLink",
+        "telegramLinkLabel"
+      ],
+      "type": "object"
+    },
+    "MoreIconAndMenuStrings": {
+      "additionalProperties": false,
+      "properties": {
+        "serverMenuButtonA11yLabel": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "serverMenuButtonA11yLabel"
+      ],
+      "type": "object"
+    },
+    "OnboardingLanguageStepStrings": {
+      "additionalProperties": false,
+      "properties": {
+        "heading": {
+          "description": "Note: This doesn’t need to be translated into Arabic or Persian since the language will always be English when this page is rendered (since the default language is English).",
+          "type": "string"
+        }
+      },
+      "required": [
+        "heading"
+      ],
+      "type": "object"
+    },
+    "OnboardingSlidesStepString": {
+      "additionalProperties": false,
+      "properties": {
+        "dataCollectionPermissionDialogContent": {
+          "$ref": "#/definitions/PermissionDialogContentStrings"
+        },
+        "onboardingSkip": {
+          "type": "string"
+        },
+        "onboardingSlide1Alt": {
+          "type": "string"
+        },
+        "onboardingSlide2Alt": {
+          "type": "string"
+        },
+        "onboardingSlide3Alt": {
+          "type": "string"
+        },
+        "onboardingSlide4Alt": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "dataCollectionPermissionDialogContent",
+        "onboardingSkip",
+        "onboardingSlide1Alt",
+        "onboardingSlide2Alt",
+        "onboardingSlide3Alt",
+        "onboardingSlide4Alt"
+      ],
+      "type": "object"
+    },
+    "PermissionDialogContentStrings": {
+      "additionalProperties": false,
+      "properties": {
+        "contentHtml": {
+          "type": "string"
+        },
+        "heading": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "contentHtml",
+        "heading"
+      ],
+      "type": "object"
+    },
+    "PermissionDialogStrings": {
+      "additionalProperties": false,
+      "properties": {
+        "agreeButton": {
+          "type": "string"
+        },
+        "connectAnywayButton": {
+          "type": "string"
+        },
+        "readMoreButton": {
+          "type": "string"
+        },
+        "understandButton": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "agreeButton",
+        "connectAnywayButton",
+        "readMoreButton",
+        "understandButton"
+      ],
+      "type": "object"
+    },
+    "ServerCardStrings": {
+      "additionalProperties": false,
+      "properties": {
+        "bestForSocialMedia": {
+          "type": "string"
+        },
+        "connectButtonLabel": {
+          "type": "string"
+        },
+        "connectedServerState": {
+          "type": "string"
+        },
+        "connectingServerState": {
+          "type": "string"
+        },
+        "defaultServerName": {
+          "description": "Name of the default (unremovable) server.",
+          "type": "string"
+        },
+        "defaultServerPrivacyPermissionDialogContent": {
+          "$ref": "#/definitions/PermissionDialogContentStrings"
+        },
+        "disconnectButtonLabel": {
+          "type": "string"
+        },
+        "disconnectedServerState": {
+          "type": "string"
+        },
+        "disconnectingServerState": {
+          "type": "string"
+        },
+        "reconnectingServerState": {
+          "type": "string"
+        },
+        "serverDefaultName": {
+          "description": "Default name of user-added server.",
+          "type": "string"
+        },
+        "serverForget": {
+          "type": "string"
+        },
+        "serverForgetAlertConfirm": {
+          "type": "string"
+        },
+        "serverForgetAlertTitle": {
+          "type": "string"
+        },
+        "serverRename": {
+          "type": "string"
+        },
+        "unreachableServerState": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "bestForSocialMedia",
+        "connectButtonLabel",
+        "connectedServerState",
+        "connectingServerState",
+        "defaultServerName",
+        "defaultServerPrivacyPermissionDialogContent",
+        "disconnectButtonLabel",
+        "disconnectedServerState",
+        "disconnectingServerState",
+        "reconnectingServerState",
+        "serverDefaultName",
+        "serverForget",
+        "serverForgetAlertConfirm",
+        "serverForgetAlertTitle",
+        "serverRename",
+        "unreachableServerState"
+      ],
+      "type": "object"
+    },
+    "Strings": {
+      "additionalProperties": false,
+      "properties": {
+        "$schema": {
+          "type": "string"
+        },
+        "AboutPage": {
+          "additionalProperties": false,
+          "properties": {
+            "aboutBeepass": {
+              "type": "string"
+            },
+            "aboutPageTitle": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "aboutBeepass",
+            "aboutPageTitle"
+          ],
+          "type": "object"
+        },
+        "AddServerModal": {
+          "$ref": "#/definitions/AddServerModalStrings"
+        },
+        "AutoConnectModal": {
+          "$ref": "#/definitions/AutoConnectModalStrings"
+        },
+        "EmptyServer": {
+          "$ref": "#/definitions/EmptyServerStrings"
+        },
+        "FeedbackPage": {
+          "$ref": "#/definitions/FeedbackPageStrings"
+        },
+        "HeaderChildPageContent": {
+          "$ref": "#/definitions/HeaderChildPageContentStrings",
+          "description": "Header content on child pages (About, Help, and Change Language).\n\nContains page title and back button."
+        },
+        "HeaderMainPageContent": {
+          "$ref": "#/definitions/HeaderMainPageContentStrings",
+          "description": "Header content for main (Severs) page.\n\nContains menu button, BeePass logo, and add server (+) button."
+        },
+        "HeaderNavMenu": {
+          "$ref": "#/definitions/HeaderNavMenuStrings",
+          "description": "Header navigation menu (triggered by the menu button)."
+        },
+        "HelpPage": {
+          "additionalProperties": false,
+          "properties": {
+            "helpCopy": {
+              "type": "string"
+            },
+            "helpPageTitle": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "helpCopy",
+            "helpPageTitle"
+          ],
+          "type": "object"
+        },
+        "LanguagePage": {
+          "additionalProperties": false,
+          "properties": {
+            "languagePageTitle": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "languagePageTitle"
+          ],
+          "type": "object"
+        },
+        "LicensesPage": {
+          "additionalProperties": false,
+          "properties": {
+            "licensesPageTitle": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "licensesPageTitle"
+          ],
+          "type": "object"
+        },
+        "LinksGroupButton": {
+          "$ref": "#/definitions/LinksGroupButtonStrings"
+        },
+        "MoreIconAndMenu": {
+          "$ref": "#/definitions/MoreIconAndMenuStrings"
+        },
+        "OnboardingLanguageStep": {
+          "$ref": "#/definitions/OnboardingLanguageStepStrings"
+        },
+        "OnboardingSlidesStep": {
+          "$ref": "#/definitions/OnboardingSlidesStepString"
+        },
+        "PermissionDialog": {
+          "$ref": "#/definitions/PermissionDialogStrings"
+        },
+        "PrivacyPage": {
+          "additionalProperties": false,
+          "properties": {
+            "privacy": {
+              "type": "string"
+            },
+            "privacyPageTitle": {
+              "type": "string"
+            },
+            "privacyText": {
+              "type": "string"
+            },
+            "privacyTitle": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "privacy",
+            "privacyPageTitle",
+            "privacyText",
+            "privacyTitle"
+          ],
+          "type": "object"
+        },
+        "ServerCard": {
+          "$ref": "#/definitions/ServerCardStrings"
+        },
+        "ServersPage": {
+          "additionalProperties": false,
+          "properties": {
+            "serversMenuItem": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "serversMenuItem"
+          ],
+          "type": "object"
+        },
+        "TermsPage": {
+          "additionalProperties": false,
+          "properties": {
+            "terms": {
+              "type": "string"
+            },
+            "termsCopy": {
+              "type": "string"
+            },
+            "termsPageTitle": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "terms",
+            "termsCopy",
+            "termsPageTitle"
+          ],
+          "type": "object"
+        },
+        "beepassPluginStrings": {
+          "additionalProperties": false,
+          "properties": {
+            "beepassPluginErrorAdminPermissions": {
+              "type": "string"
+            },
+            "beepassPluginErrorAntivirus": {
+              "type": "string"
+            },
+            "beepassPluginErrorInvalidServerCredentials": {
+              "type": "string"
+            },
+            "beepassPluginErrorRoutingTables": {
+              "type": "string"
+            },
+            "beepassPluginErrorServerUnreachable": {
+              "type": "string"
+            },
+            "beepassPluginErrorSystemConfiguration": {
+              "type": "string"
+            },
+            "beepassPluginErrorUdpForwardingNotEnabled": {
+              "type": "string"
+            },
+            "beepassPluginErrorUnsupportedRoutingTable": {
+              "type": "string"
+            },
+            "beepassPluginErrorVpnPermissionNotGranted": {
+              "type": "string"
+            },
+            "beepassServicesInstallationConfirmation": {
+              "type": "string"
+            },
+            "beepassServicesInstallationFailed": {
+              "type": "string"
+            },
+            "beepassServicesInstalled": {
+              "type": "string"
+            },
+            "beepassServicesInstalling": {
+              "type": "string"
+            },
+            "errorFeedbackSubmission": {
+              "type": "string"
+            },
+            "errorInvalidAccessKey": {
+              "type": "string"
+            },
+            "errorServerAlreadyAdded": {
+              "type": "string"
+            },
+            "errorServerIncompatible": {
+              "type": "string"
+            },
+            "errorShadowsocksUnsupportedCipher": {
+              "type": "string"
+            },
+            "errorTimeout": {
+              "type": "string"
+            },
+            "errorUnexpected": {
+              "type": "string"
+            },
+            "nonSystemVpnWarningDetail": {
+              "type": "string"
+            },
+            "nonSystemVpnWarningTitle": {
+              "type": "string"
+            },
+            "outlinePluginErrorAdminPermissions": {
+              "type": "string"
+            },
+            "outlinePluginErrorAntivirus": {
+              "type": "string"
+            },
+            "outlinePluginErrorInvalidServerCredentials": {
+              "type": "string"
+            },
+            "outlinePluginErrorRoutingTables": {
+              "type": "string"
+            },
+            "outlinePluginErrorServerUnreachable": {
+              "type": "string"
+            },
+            "outlinePluginErrorSystemConfiguration": {
+              "type": "string"
+            },
+            "outlinePluginErrorUdpForwardingNotEnabled": {
+              "type": "string"
+            },
+            "outlinePluginErrorUnsupportedRoutingTable": {
+              "type": "string"
+            },
+            "outlinePluginErrorVpnPermissionNotGranted": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "beepassPluginErrorAdminPermissions",
+            "beepassPluginErrorAntivirus",
+            "beepassPluginErrorInvalidServerCredentials",
+            "beepassPluginErrorRoutingTables",
+            "beepassPluginErrorServerUnreachable",
+            "beepassPluginErrorSystemConfiguration",
+            "beepassPluginErrorUdpForwardingNotEnabled",
+            "beepassPluginErrorUnsupportedRoutingTable",
+            "beepassPluginErrorVpnPermissionNotGranted",
+            "beepassServicesInstallationConfirmation",
+            "beepassServicesInstallationFailed",
+            "beepassServicesInstalled",
+            "beepassServicesInstalling",
+            "errorFeedbackSubmission",
+            "errorInvalidAccessKey",
+            "errorServerAlreadyAdded",
+            "errorServerIncompatible",
+            "errorShadowsocksUnsupportedCipher",
+            "errorTimeout",
+            "errorUnexpected",
+            "nonSystemVpnWarningDetail",
+            "nonSystemVpnWarningTitle",
+            "outlinePluginErrorAdminPermissions",
+            "outlinePluginErrorAntivirus",
+            "outlinePluginErrorInvalidServerCredentials",
+            "outlinePluginErrorRoutingTables",
+            "outlinePluginErrorServerUnreachable",
+            "outlinePluginErrorSystemConfiguration",
+            "outlinePluginErrorUdpForwardingNotEnabled",
+            "outlinePluginErrorUnsupportedRoutingTable",
+            "outlinePluginErrorVpnPermissionNotGranted"
+          ],
+          "type": "object"
+        },
+        "shared": {
+          "additionalProperties": false,
+          "properties": {
+            "appTitle": {
+              "type": "string"
+            },
+            "cancel": {
+              "type": "string"
+            },
+            "close": {
+              "type": "string"
+            },
+            "fixThis": {
+              "type": "string"
+            },
+            "getHelp": {
+              "type": "string"
+            },
+            "languages": {
+              "additionalProperties": false,
+              "description": "Language names (should NOT be translated — e.g. `english` should always be \"English\")",
+              "properties": {
+                "english": {
+                  "type": "string"
+                },
+                "persian": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "english",
+                "persian"
+              ],
+              "type": "object"
+            },
+            "learnMore": {
+              "type": "string"
+            },
+            "quit": {
+              "type": "string"
+            },
+            "save": {
+              "type": "string"
+            },
+            "serverAdded": {
+              "type": "string"
+            },
+            "serverConnected": {
+              "type": "string"
+            },
+            "serverDisconnected": {
+              "type": "string"
+            },
+            "serverForgotten": {
+              "type": "string"
+            },
+            "serverForgottenUndo": {
+              "type": "string"
+            },
+            "serverRenameComplete": {
+              "type": "string"
+            },
+            "undoButtonLabel": {
+              "type": "string"
+            },
+            "updateDownloaded": {
+              "type": "string"
+            },
+            "version": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "appTitle",
+            "cancel",
+            "close",
+            "fixThis",
+            "getHelp",
+            "languages",
+            "learnMore",
+            "quit",
+            "save",
+            "serverAdded",
+            "serverConnected",
+            "serverDisconnected",
+            "serverForgotten",
+            "serverForgottenUndo",
+            "serverRenameComplete",
+            "undoButtonLabel",
+            "updateDownloaded",
+            "version"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "$schema",
+        "AboutPage",
+        "AddServerModal",
+        "AutoConnectModal",
+        "EmptyServer",
+        "FeedbackPage",
+        "HeaderChildPageContent",
+        "HeaderMainPageContent",
+        "HeaderNavMenu",
+        "HelpPage",
+        "LanguagePage",
+        "LicensesPage",
+        "LinksGroupButton",
+        "MoreIconAndMenu",
+        "OnboardingLanguageStep",
+        "OnboardingSlidesStep",
+        "PermissionDialog",
+        "PrivacyPage",
+        "ServerCard",
+        "ServersPage",
+        "TermsPage",
+        "beepassPluginStrings",
+        "shared"
+      ],
+      "type": "object"
+    }
+  }
+}

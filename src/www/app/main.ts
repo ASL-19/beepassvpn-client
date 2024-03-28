@@ -12,15 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import * as url from 'url';
+import '../ui_components/app-root.js';
 
 import {EventQueue} from '../model/events';
 
 import {App} from './app';
 import {onceEnvVars} from './environment';
-import {PersistentServerFactory, PersistentServerRepository} from './persistent_server';
+import {NativeNetworking} from './net';
+import {OutlineServerRepository} from './outline_server_repository';
+import {makeConfig, SIP002_URI} from 'ShadowsocksConfig';
 import {OutlinePlatform} from './platform';
 import {Settings} from './settings';
+import {TunnelFactory} from './tunnel';
 
 // Used to determine whether to use Polymer functionality on app initialization failure.
 let webComponentsAreReady = false;
@@ -31,7 +34,7 @@ document.addEventListener('WebComponentsReady', () => {
 
 // Used to delay loading the app until (translation) resources have been loaded. This can happen a
 // little later than WebComponentsReady.
-const oncePolymerIsReady = new Promise((resolve) => {
+const oncePolymerIsReady = new Promise<void>(resolve => {
   document.addEventListener('app-localize-resources-loaded', () => {
     console.debug('received app-localize-resources-loaded event');
     resolve();
@@ -46,57 +49,87 @@ function getRootEl() {
 }
 
 function createServerRepo(
-    eventQueue: EventQueue, storage: Storage, deviceSupport: boolean,
-    serverFactory: PersistentServerFactory) {
-  const repo = new PersistentServerRepository(serverFactory, eventQueue, storage);
+  eventQueue: EventQueue,
+  storage: Storage,
+  deviceSupport: boolean,
+  net: NativeNetworking,
+  createTunnel: TunnelFactory
+) {
+  const repo = new OutlineServerRepository(net, createTunnel, eventQueue, storage);
   if (!deviceSupport) {
     console.debug('Detected development environment, using fake servers.');
     if (repo.getAll().length === 0) {
-      repo.add({
-        name: 'Fake Working Server',
-        host: '127.0.0.1',
-        port: 123,
-        method: 'chacha20-ietf-poly1305'
-      });
-      repo.add({
-        name: 'Fake Broken Server',
-        host: '192.0.2.1',
-        port: 123,
-        method: 'chacha20-ietf-poly1305'
-      });
-      repo.add({
-        name: 'Fake Unreachable Server',
-        host: '10.0.0.24',
-        port: 123,
-        method: 'chacha20-ietf-poly1305'
-      });
+      repo.add(
+        SIP002_URI.stringify(
+          makeConfig({
+            host: '127.0.0.1',
+            port: 123,
+            method: 'chacha20-ietf-poly1305',
+            tag: 'Fake Working Server',
+          })
+        )
+      );
+      repo.add(
+        SIP002_URI.stringify(
+          makeConfig({
+            host: '192.0.2.1',
+            port: 123,
+            method: 'chacha20-ietf-poly1305',
+            tag: 'Fake Broken Server',
+          })
+        )
+      );
+      repo.add(
+        SIP002_URI.stringify(
+          makeConfig({
+            host: '10.0.0.24',
+            port: 123,
+            method: 'chacha20-ietf-poly1305',
+            tag: 'Fake Unreachable Server',
+          })
+        )
+      );
     }
   }
   return repo;
 }
 
 export function main(platform: OutlinePlatform) {
-  return Promise.all([onceEnvVars, oncePolymerIsReady])
-      .then(
-          ([environmentVars]) => {
-            console.debug('running main() function');
+  return Promise.all([onceEnvVars, oncePolymerIsReady]).then(
+    ([environmentVars]) => {
+      console.debug('running main() function');
 
-            const queryParams = url.parse(document.URL, true).query;
-            const debugMode = queryParams.debug === 'true';
+      const queryParams = new URL(document.URL).searchParams;
+      const debugMode = queryParams.get('debug') === 'true';
 
-            const eventQueue = new EventQueue();
-            const serverRepo = createServerRepo(
-                eventQueue, window.localStorage, platform.hasDeviceSupport(),
-                platform.getPersistentServerFactory());
-            const settings = new Settings();
-            const app = new App(
-                eventQueue, serverRepo, getRootEl(), debugMode, platform.getUrlInterceptor(),
-                platform.getClipboard(), platform.getErrorReporter(environmentVars), settings,
-                environmentVars, platform.getUpdater(), platform.quitApplication);
-          },
-          (e) => {
-            onUnexpectedError(e);
-          });
+      const eventQueue = new EventQueue();
+      const serverRepo = createServerRepo(
+        eventQueue,
+        window.localStorage,
+        platform.hasDeviceSupport(),
+        platform.getNativeNetworking(),
+        platform.getTunnelFactory()
+      );
+      const settings = new Settings();
+      new App(
+        eventQueue,
+        serverRepo,
+        getRootEl(),
+        debugMode,
+        platform.getUrlInterceptor(),
+        platform.getClipboard(),
+        platform.getErrorReporter(environmentVars),
+        settings,
+        environmentVars,
+        platform.getUpdater(),
+        platform.getVpnServiceInstaller(),
+        platform.quitApplication
+      );
+    },
+    e => {
+      onUnexpectedError(e);
+    }
+  );
 }
 
 function onUnexpectedError(error: Error) {

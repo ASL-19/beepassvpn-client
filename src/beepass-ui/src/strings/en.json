@@ -1,0 +1,194 @@
+{
+  "$schema": "./strings.schema.json",
+  "AboutPage": {
+    "aboutBeepass": "BeePass is a free, simple and secure VPN built on top of <a href={outlineUrl}>Outline</a>, an open source project created by <a href={jigsawUrl}>JigSaw</a>. Designed with your privacy in mind, BeePass VPN will help you bypass internet censorship and improve your privacy online. BeePass is powered by <a href={shadowsocksUrl}>Shadowsocks</a> and soon will support other protocols.",
+    "aboutPageTitle": "About"
+  },
+  "AddServerModal": {
+    "serverAccessKeyDetected": "Access key detected",
+    "serverAccessKeyLabel": "ss://access-key",
+    "serverAdd": "Add server",
+    "serverAddAccessKey": "Add access key",
+    "serverAddAlreadyAdded": "{openLine}Server already added{closeLine}",
+    "serverAddIgnore": "Ignore",
+    "serverAddInstructions": "Copy the access key from invitation instruction to add a server.",
+    "serverAddNoServersLabel": "You don't have any servers",
+    "serverAddZeroStateInstructions": "Add a server",
+    "serverCreateYourOwn": "Don’t have a VPN server? Get one!",
+    "serverCreateYourOwnZeroState": "Don’t have a VPN server? Get one!",
+    "serverDetected": "Please confirm that you want to add this server.",
+    "serverAddInvalid": "{openLine}Invalid access key.{closeLine}Enter a valid access key (ss://) to add a server."
+  },
+  "AutoConnectModal": {
+    "autoConnectDialogDetail": "Unless you disconnect from your BeePass server, BeePass will automatically connect next time you restart your device.",
+    "autoConnectDialogTitle": "Stay protected, always",
+    "gotIt": "Got it",
+    "tips": "Tips"
+  },
+  "beepassPluginStrings": {
+    "beepassPluginErrorAdminPermissions": "BeePass needs admin permissions in order to run. If you don't have admin permissions, please try again after restarting your Windows computer or ask your system administrator for help.",
+    "beepassPluginErrorAntivirus": "It seems like your antivirus software is preventing us from successfully connecting.",
+    "beepassPluginErrorInvalidServerCredentials": "It seems like your access key is not valid. If this happens again, please contact your server admin.",
+    "beepassPluginErrorRoutingTables": "We were not able to configure your routing tables successfully. If this happens again, please reach out to us.",
+    "beepassPluginErrorServerUnreachable": "We can’t seem to connect to your server. Please check that you are connected to the internet and try again.",
+    "beepassPluginErrorSystemConfiguration": "Sorry, it looks like BeePass is not properly installed. Please try installing it again. If that doesn’t work, please submit feedback through the app.",
+    "beepassPluginErrorUdpForwardingNotEnabled": "It seems like this server doesn’t support UDP forwarding. If this happens again, please contact your server admin.",
+    "beepassPluginErrorUnsupportedRoutingTable": "It seems like another VPN is active. Please disconnect it and try again.",
+    "beepassPluginErrorVpnPermissionNotGranted": "BeePass needs your permission to set up a VPN connection to the server. Please try again, or submit feedback if you need help.",
+    "beepassServicesInstalled": "Beepass has been successfully initialized, please try again to connect to the server.",
+    "beepassServicesInstalling": "Initializing Beepass...",
+    "beepassServicesInstallationConfirmation": "We will initialize Beepass, which may require admin permissions. Would you like to proceed?",
+    "beepassServicesInstallationFailed": "Unfortunately we are not able to initialized Beepass, please submit feedback through the app.",
+    "errorFeedbackSubmission": "Sorry, we were unable to submit your feedback. Please check that you are connected to the internet and try again.",
+    "errorInvalidAccessKey": "Invalid access key. Please try again, or submit feedback for help.",
+    "errorServerAlreadyAdded": "Server “{serverName}” already added.",
+    "errorServerIncompatible": "Sorry, this access key is not compatible with this version of BeePass.",
+    "errorTimeout": "Something seems to be taking longer than expected. Quitting and restarting may help. If this happens again, please submit feedback.",
+    "errorUnexpected": "Sorry, an unexpected error occurred. Quitting and restarting may help. If this happens again, please submit feedback.",
+    "errorShadowsocksUnsupportedCipher": "The server you requested to add uses an unsafe cipher ({cipher}). Please contact your server admin.",
+    "nonSystemVpnWarningTitle": "Verify your browser connection",
+    "nonSystemVpnWarningDetail": "Most browsers connect automatically with BeePass, some do not.",
+    "outlinePluginErrorAdminPermissions": "Outline needs admin permissions in order to run. If you don't have admin permissions, please try again after restarting your Windows computer or ask your system administrator for help.",
+    "outlinePluginErrorAntivirus": "It seems like your antivirus software is preventing us from successfully connecting.",
+    "outlinePluginErrorInvalidServerCredentials": "It seems like your access key is not valid. If this happens again, please contact your server admin.",
+    "outlinePluginErrorRoutingTables": "We were not able to configure your routing tables successfully. If this happens again, please reach out to us.",
+    "outlinePluginErrorServerUnreachable": "We can’t seem to connect to your server. Please check that you are connected to the internet and try again.",
+    "outlinePluginErrorSystemConfiguration": "Sorry, it looks like Outline is not properly installed. Please try installing it again. If that doesn’t work, please submit feedback through the app.",
+    "outlinePluginErrorUdpForwardingNotEnabled": "It seems like this server doesn’t support UDP forwarding. If this happens again, please contact your server admin.",
+    "outlinePluginErrorUnsupportedRoutingTable": "It seems like another VPN is active. Please disconnect it and try again.",
+    "outlinePluginErrorVpnPermissionNotGranted": "Outline needs your permission to set up a VPN connection to the server. Please try again, or submit feedback if you need help."
+  },
+
+  "EmptyServer": {
+    "description": "You need to add a server in order to connect",
+    "emailLinkLabel": "Email",
+    "heading": "BeepassVPN is Different",
+    "installationGuideLink": "Need help? Watch a walkthrough.",
+    "serverLinksHeading": "Get your free server from us via:",
+    "telegramLinkLabel": "Telegram"
+  },
+  "LanguagePage": {
+    "languagePageTitle": "Change Language"
+  },
+  "LinksGroupButton": {
+    "emailLink": "mailto:get@beepassvpn.com?subject=Get Access Key&body=You're all set! Please send this email to get your access key",
+    "emailLinkLabel": "Email",
+    "telegramLink": "https://telegram.me/beepassvpn_bot",
+    "telegramLinkLabel": "Telegram"
+  },
+  "MoreIconAndMenu": {
+    "serverMenuButtonA11yLabel": "Open server menu"
+  },
+  "PermissionDialog": {
+    "agreeButton": "I agree",
+    "readMoreButton": "Read more",
+    "connectAnywayButton": "Connect anyway",
+    "understandButton": "I understand"
+  },
+  "ServerCard": {
+    "bestForSocialMedia": "Best for social media browsing",
+    "connectButtonLabel": "Connect",
+    "connectedServerState": "Connected",
+    "connectingServerState": "Connecting...",
+    "defaultServerName": "BeePassVPN Default Server",
+    "defaultServerPrivacyPermissionDialogContent": {
+      "contentHtml": "<p>We want to keep things transparent and ensure you have a blast using our default server. When using the default server we can’t guarantee that all information about your internet traffic will be fully private.</p><p>When you visit a TLS (https) website, your messages become top-secret codes that only the intended recipient can decode. It's like having a secret language! But someone with FULL access to your network, like your internet service provider, might catch a peek at the website's name. They can't decode your secret messages, but they might know where you're headed.</p><p>When connecting to a website not using TLS (http) the full content you are sending and receiving could be seen by someone who has FULL access to your network like your internet service provider.</p><p>By using the default server you acknowledge this risk. If you’re concerned we recommend requesting a different server from our Telegram or email bot.</p>",
+      "heading": "Use of Default Server"
+    },
+    "disconnectButtonLabel": "Disconnect",
+    "disconnectedServerState": "Disconnected",
+    "disconnectingServerState": "Disconnecting...",
+    "reconnectingServerState": "Reconnecting...",
+    "serverDefaultName": "BeePass Server",
+    "serverForgetAlertConfirm": "Forget",
+    "serverForgetAlertTitle": "Forget {servername}?",
+    "serverForget": "Forget",
+    "serverRename": "Rename",
+    "unreachableServerState": "Unreachable"
+  },
+  "ServersPage": {
+    "serversMenuItem": "Servers"
+  },
+  "shared": {
+    "appTitle": "BeePass VPN",
+    "cancel": "cancel",
+    "close": "Close",
+    "fixThis": "Fix this",
+    "getHelp": "Get help",
+    "languages": {
+      "english": "English",
+      "persian": "فارسی"
+    },
+    "learnMore": "Learn More",
+    "quit": "Quit",
+    "save": "save",
+    "undoButtonLabel": "Undo",
+    "updateDownloaded": "An updated version of BeePass has been downloaded. It will be installed when you restart BeePass.",
+    "serverAdded": "Added server “{serverName}”!",
+    "serverConnected": "Connected to “{serverName}”",
+    "serverDisconnected": "Disconnected from “{serverName}”",
+    "serverForgotten": "Forgot server “{serverName}”.",
+    "serverForgottenUndo": "Server “{serverName}” has been restored.",
+    "serverRenameComplete": "Server renamed",
+    "version": "Version {appVersion}"
+  },
+  "FeedbackPage": {
+    "emailFeedbackInput": "Email address (optional)",
+    "feedbackCannotAddServer": "Can't add a server",
+    "feedbackConnection": "Can't connect to my server",
+    "feedbackGeneral": "General feedback",
+    "feedbackInput": "Your feedback",
+    "feedbackLanguageDisclaimer": "Please note that our team is only able to answer feedback in English.",
+    "feedbackNoServer": "Don't have a server",
+    "feedbackPageTitle": "Submit Feedback",
+    "feedbackPerformance": "BeePass is slow",
+    "feedbackPrivacy": "Your feedback, your email address (if provided), and additional information referred to in the {privacyPolicyLinkOpen}Data Collection Policy{privacyPolicyLinkClose} will be sent to the BeePass team. Please do not include personal information in your feedback.",
+    "feedbackSuggestion": "Suggestions",
+    "feedbackThanks": "Thanks for helping us improve! We love hearing from you.",
+    "submit": "Submit",
+    "submitting": "Submitting..."
+  },
+  "HeaderChildPageContent": {
+    "backButtonA11yLabel": "Back to servers"
+  },
+  "HeaderMainPageContent": {
+    "addServersButtonA11yLabel": "Add server",
+    "menuButtonAllyLabel": "Open navigation"
+  },
+  "HeaderNavMenu": {
+    "externalLinksListA11yLabel": "External links",
+    "screensListA11yLabel": "Screens"
+  },
+  "HelpPage": {
+    "helpCopy": "We are committed to provide a secure and stable service. If you have any questions or need assistance with using BeePass VPN please visit our <a href={beepassUrl}>website</a> or contact us through the following support channels:<br><br>Email: <a href={beepassEmail}>Email Support</a><br><br>Telegram: <a href={telegramUrl}>Telegram Support</a>",
+    "helpPageTitle": "Help"
+  },
+  "LicensesPage": {
+    "licensesPageTitle": "Licenses"
+  },
+  "OnboardingLanguageStep": {
+    "heading": "Please select your language"
+  },
+  "OnboardingSlidesStep": {
+    "dataCollectionPermissionDialogContent": {
+      "contentHtml": "<p>We maintain information relating to our customers and their orders based upon information provided by you. Information is collected in placing orders and in the course of delivering our services. Only personal information that is reasonably necessary is collected. Types of information collected includes registration information, website usage, third party, and other information. The information we collect comes directly from you, our service providers or the website or is information relating to the delivery or performance of our services.</p> <h3>Usage Information of BeePass VPN Service</h3><p>We collect your usage data such as the hourly number of bytes transferred when you use our services and the country of origin you are connecting from. We will not collect the websites you visit, services you access or your online activity, your IP address assigned to you by your internet service provider.</p><h3>Account Information</h3><p>We do not require registration to use our BeePass VPN services.Depending on how you choose to access our services, we collect the following:</p><ul><li>access via BeePass Email Bot: your email address</li><li>access via BeePass Telegram Bot: your Telegram ID or Telegram username, and any other information you provided on your publicTelegram account, including your mobile phone number, profile name,profile picture and information.</li></ul><h3>Feedback and Crash Reports</h3><p>Since BeePass VPN is built for circumvention, there might be situations where we need more information about the user's context to troubleshoot and/or improve BeePass VPN. This is why BeePass VPN allows users to send feedback from the app. We recommend not including personally identifiable information, but if you would like our team to follow up with you or help troubleshoot an issue, you can share your email address or Telegram username through the in-app feedback form. If BeePass VPN crashes or a fatal exception occurs, or if you manually send feedback through the BeePass VPN app, the information listed below will be share with us:</p><ul><li>Unique identifier Device ID. This ID is randomly generated client-side and does not map to Android unique device identifier.</li><li>Country the user is connected from.</li><li>Date and time of crash / exception and up to 100 prior events, i.e. a user opening the ‘About’ section of BeePass VPN</li><li>Statically compiled exception messages</li><li>Operating system name and version</li><li>Phone model (if applicable)</li><li>App start time</li><li>Browser</li><li>Architecture</li><li>BeePass VPN version and build number</li></ul>",
+      "heading": "What Information Do We Collect?"
+    },
+    "onboardingSkip": "Skip",
+    "onboardingSlide1Alt": "BeePass Connects You to the Global Internet. Our BeeBots help you connect to a private server so you can access the internet safely whenever and wherever you are.",
+    "onboardingSlide2Alt": "BeePass is Secure. Strong encryption protects your communication and browsing.",
+    "onboardingSlide3Alt": "Privacy by Design. We maintain the minimal amount of data necessary to provide you with a reliable service.",
+    "onboardingSlide4Alt": "Add Your Server and Connect. Use our Email or Telegram bots to get your server and enjoy browsing with a free, unlimited, and secure VPN. Start your journey."
+  },
+  "PrivacyPage": {
+    "privacy": "Privacy Policy",
+    "privacyPageTitle": "Privacy Policy",
+    "privacyText": "",
+    "privacyTitle": "BeePass will never collect your personal information"
+  },
+  "TermsPage": {
+    "terms": "Terms of Service",
+    "termsCopy": "",
+    "termsPageTitle": "Terms of Service"
+  }
+}

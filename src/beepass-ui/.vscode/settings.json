@@ -1,0 +1,107 @@
+{
+  "cSpell.enableFiletypes": [
+    "shellscript"
+  ],
+  "cSpell.ignorePaths": [
+    "**/package-lock.json",
+    "**/node_modules/**",
+    "**/vscode-extension/**",
+    "**/.git/objects/**",
+    ".env",
+    ".env.local",
+    ".vscode",
+    "src/strings/fa.json"
+  ],
+  "cSpell.words": [
+    "apks",
+    "armv",
+    "backbutton",
+    "beepass",
+    "beepassvpn",
+    "bundletool",
+    "cmdline",
+    "constate",
+    "craco",
+    "deviceready",
+    "envalid",
+    "GETBYID",
+    "Hexa",
+    "KEYALIAS",
+    "KEYPASS",
+    "overlayscrollbars",
+    "proxying",
+    "Roboto",
+    "rushstack",
+    "sdkmanager",
+    "shadowsocks",
+    "splashscreen",
+    "ssconf",
+    "STOREPASS",
+    "stylelint",
+    "stylelintignore",
+    "stylis",
+    "Swiper",
+    "syncthing",
+    "tsdoc",
+    "usememo",
+    "uuidv",
+    "vite",
+    "walkthrough",
+    "webviews",
+    "xcodeproj",
+    "xcodeworkspace"
+  ],
+  "cSpell.spellCheckOnlyWorkspaceFiles": true,
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "explorer.excludeGitIgnore": true,
+  "files.associations": {
+    ".env.*": "shellscript"
+  },
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll.stylelint": "explicit"
+  },
+  "editor.unicodeHighlight.allowedCharacters": {
+    "’": true
+  },
+  "jest.runMode": "on-demand",
+  "vitest.nodeEnv": {
+    "VITE_BUILD_TYPE": "cordova-mock"
+  },
+  "js/ts.implicitProjectConfig.checkJs": true,
+  "markdown.extension.toc.levels": "2..6",
+  "prettier.configPath": "prettier.config.js",
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/*.code-search": true,
+    "**/*.csv": true,
+    "src/server/": true,
+    ".vscode/": true,
+    "package-lock.json": true
+  },
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.preferences.importModuleSpecifierEnding": "minimal",
+  "typescript.preferences.quoteStyle": "double",
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "stylelint.validate": [
+    "typescript",
+    "typescriptreact"
+  ],
+  "[graphql][javascript][json][jsonc][typescript][typescriptreact][yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[markdown]": {
+    "editor.detectIndentation": false,
+    "editor.tabSize": 4
+  },
+  "[yaml]": {
+    "editor.tabSize": 4
+  }
+}

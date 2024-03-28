@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>com.apple.developer.networking.networkextension</key>
+	<array>
+		<string>app-proxy-provider</string>
+		<string>content-filter-provider</string>
+		<string>packet-tunnel-provider</string>
+	</array>
+	<key>com.apple.developer.networking.vpn.api</key>
+	<array>
+		<string>allow-vpn</string>
+	</array>
+	<key>com.apple.security.app-sandbox</key>
+	<true/>
+	<key>com.apple.security.application-groups</key>
+	<array>
+		<string>$(TeamIdentifierPrefix)com.beepassvpn.macos.client</string>
+	</array>
+	<key>com.apple.security.network.client</key>
+	<true/>
+	<!-- ASL19: Removed because this was flagged by Apple in macOS app review, and doesn’t seem to be necessary (though it could affect UDP traffic according to https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_security_network_server) -->
+	<!-- <key>com.apple.security.network.server</key>
+	<true/> -->
+</dict>
+</plist>

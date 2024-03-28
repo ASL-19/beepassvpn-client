@@ -20,7 +20,7 @@ interface StorageSettings {
 export enum SettingsKey {
   VPN_WARNING_DISMISSED = 'vpn-warning-dismissed',
   AUTO_CONNECT_DIALOG_DISMISSED = 'auto-connect-dialog-dismissed',
-  ONBOARDING_COMPLETE = 'onboarding-complete'
+  PRIVACY_ACK = 'privacy-ack'
 }
 
 // Persistent storage for user settings that supports a limited set of keys.
@@ -79,3 +79,4 @@ export class Settings {
     this.storage.setItem(Settings.STORAGE_KEY, storageSettingsJson);
   }
 }
+

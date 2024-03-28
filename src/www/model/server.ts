@@ -12,16 +12,37 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import {ShadowsocksConfig} from './shadowsocks';
-
 // TODO: add guidelines for this file
 
+export enum ServerType {
+  // The connection data is static, doesn't change, and isn't deleted on disconnect.
+  STATIC_CONNECTION,
+
+  // The connection data is refetched via the access key on each connection.
+  // and deleted on each disconnection
+  DYNAMIC_CONNECTION,
+}
+
+// TODO(daniellacosse): determine what properties should be controlled only by the Server implementation and make them readonly
 export interface Server {
   // A unique id that identifies this Server.
-  id: string;
+  readonly id: string;
+
+  // A type specifying the manner in which the Server connects.
+  readonly type: ServerType;
 
   // The name of this server, as given by the user.
   name: string;
+
+  // The location to pull the session config from on each connection.
+  sessionConfigLocation?: URL;
+
+  // The address of the service.
+  address: string;
+
+  // Whether this is an Outline server (access key ends in 'outline=1').
+  // Used to provide a default name to the server card.
+  isOutlineServer: boolean;
 
   // The message identifier corresponding to the server error state. This identifier
   // must match one of the localized app message.
@@ -40,12 +61,10 @@ export interface Server {
   checkReachable(): Promise<boolean>;
 }
 
-export type ServerConfig = ShadowsocksConfig;
-
 export interface ServerRepository {
-  add(serverConfig: ServerConfig): void;
+  add(accessKey: string): void;
   forget(serverId: string): void;
   undoForget(serverId: string): void;
   getAll(): Server[];
-  getById(serverId: string): Server|undefined;
+  getById(serverId: string): Server | undefined;
 }

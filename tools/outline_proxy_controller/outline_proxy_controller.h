@@ -14,21 +14,20 @@
 
 #pragma once
 
-#include <queue>
 #include <sstream>
 #include <string>
 #include <utility>
+#include <vector>
 
 #include <cstdlib>
 
 namespace outline {
 
 typedef std::pair<std::string, uint8_t> OutputAndStatus;
-typedef std::pair<const std::string, const std::string> SubCommandPart;
-typedef std::queue<SubCommandPart> SubCommand;
+typedef std::vector<std::string> CommandArguments;
 
 class OutlineProxyController {
- public:
+public:
   OutlineProxyController();
 
   /**
@@ -38,7 +37,7 @@ class OutlineProxyController {
    *      - delete the tun device
    *
    */
-  ~OutlineProxyController();
+  ~OutlineProxyController() noexcept;
 
   /**
    *  set the routing table so user traffic get routed though outline
@@ -59,7 +58,21 @@ class OutlineProxyController {
    */
   std::string getTunDeviceName();
 
- private:
+public:
+  /**
+   * @brief Loop through the current routing table and determine whether
+   *        we need to reconfigure it (for example, when someone else has
+   *        modified the routing table; or wifi disconnected).
+   */
+  bool IsOutlineRoutingPolluted() noexcept;
+
+  /**
+   * @brief Try to disconnect and connect again, and returns whether we have
+   *        successfully reconnected to the target server.
+   */
+  bool ReconfigureRouting() noexcept;
+
+private:
   // this enum is representing different stage of outing and "de"routing
   // through outline proxy server. And is used for exmaple in undoing
   // different steps in case the routing process fails
@@ -69,14 +82,16 @@ class OutlineProxyController {
     DEFAULT_GATEWAY_ROUTE_DELETED,
     TRAFFIC_ROUTED_THROUGH_TUN,
     OUTLINE_DNS_SET,
-    IPV6_ROUTING_FAILED
-
+    IPV6_ROUTING_FAILED,
   };
 
-  enum OutlineConnectionStatus {
-    ROUTING_THROUGH_OUTLINE,
-    ROUTING_THROUGH_DEFAULT_GATEWAY
-  } routingStatus;
+  enum class OutlineConnectionStatus {
+    kConfiguringRouting,
+    kReconfiguringRouting,
+    kRoutingThroughOutline,
+    kRoutingThroughDefaultGateway,
+  } routing_status_;
+
   /**
    * auxilary function to check the status code of a command
    */
@@ -126,15 +141,17 @@ class OutlineProxyController {
   /**
    * exectues a shell command and returns the stdout
    */
-  OutputAndStatus executeCommand(const std::string commandName, const SubCommand args);
+  OutputAndStatus executeCommand(const std::string commandName,
+                                 const std::string subCommandName,
+                                 CommandArguments args);
 
-  OutputAndStatus executeIPCommand(const SubCommand args);
-  OutputAndStatus executeIPRoute(const SubCommand args);
-  OutputAndStatus executeIPLink(const SubCommand args);
-  OutputAndStatus executeIPTunTap(const SubCommand args);
-  OutputAndStatus executeIPAddress(const SubCommand args);
+  OutputAndStatus executeIPCommand(const CommandArguments &args);
+  OutputAndStatus executeIPRoute(const CommandArguments &args);
+  OutputAndStatus executeIPLink(const CommandArguments &args);
+  OutputAndStatus executeIPTunTap(const CommandArguments &args);
+  OutputAndStatus executeIPAddress(const CommandArguments &args);
 
-  OutputAndStatus executeSysctl(const SubCommand args);
+  OutputAndStatus executeSysctl(const CommandArguments &args);
 
   void detectBestInterfaceIndex();
   void processRoutingTable();
@@ -169,22 +186,15 @@ class OutlineProxyController {
    */
   std::string getParamValueInResult(std::string resultString, std::string param);
 
-  /**
-   *  store created route as an string so it can be deleted later
-   */
-  std::string createRoutingString(SubCommand args);
-
- private:
-  const std::string c_redirect_stderr_into_stdout = " 2>&1";
-
+private:
   const std::string resultDelimiter = " ";
 
-  const std::string IPCommand = "ip";
-  const std::string IPRouteCommand = "ip route";
-  const std::string IPAddressCommand = "ip addr";
-  const std::string IPLinkCommand = "ip link";
-  const std::string IPTunTapCommand = "ip tuntap";
-  const std::string sysctlCommand = "sysctl";
+  const std::string IPCommand = "/usr/sbin/ip";
+  const std::string IPRouteSubCommand = "route";
+  const std::string IPAddressSubCommand = "addr";
+  const std::string IPLinkSubCommand = "link";
+  const std::string IPTunTapSubCommand = "tuntap";
+  const std::string sysctlCommand = "/usr/sbin/sysctl";
 
   const std::string c_normal_traffic_priority_metric = "10";
   const std::string c_proxy_priority_metric = "5";

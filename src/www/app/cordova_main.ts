@@ -12,23 +12,34 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// <reference path='../../types/ambient/outlinePlugin.d.ts'/>
-/// <reference path='../../types/ambient/webintents.d.ts'/>
+/// <reference types='cordova'/>
+/// <reference path='../types/webintents.d.ts'/>
+
+import '@babel/polyfill';
+import 'web-animations-js/web-animations-next-lite.min.js';
+import '@webcomponents/webcomponentsjs/webcomponents-bundle.js';
+
+import {setRootPath} from '@polymer/polymer/lib/utils/settings.js';
+setRootPath(location.pathname.substring(0, location.pathname.lastIndexOf('/') + 1));
 
 import * as sentry from '@sentry/browser';
 
-import {EventQueue} from '../model/events';
-import {ServerConfig} from '../model/server';
-
-import {AbstractClipboard, Clipboard, ClipboardListener} from './clipboard';
+import {AbstractClipboard} from './clipboard';
 import {EnvironmentVariables} from './environment';
 import {SentryErrorReporter} from './error_reporter';
-import {FakeOutlineTunnel} from './fake_tunnel';
+import {FakeNativeNetworking} from './fake_net';
 import {main} from './main';
-import {OutlineServer} from './outline_server';
+import * as errors from '../model/errors';
+import {NativeNetworking} from './net';
 import {OutlinePlatform} from './platform';
+import {Tunnel, TunnelStatus} from './tunnel';
 import {AbstractUpdater} from './updater';
 import * as interceptors from './url_interceptor';
+import {FakeOutlineTunnel} from './fake_tunnel';
+import {ShadowsocksSessionConfig} from './tunnel';
+import {NoOpVpnInstaller, VpnInstaller} from './vpn_installer';
+
+const OUTLINE_PLUGIN_NAME = 'OutlinePlugin';
 
 // Pushes a clipboard event whenever the app is brought to the foreground.
 class CordovaClipboard extends AbstractClipboard {
@@ -44,43 +55,96 @@ class CordovaClipboard extends AbstractClipboard {
   }
 }
 
+// Helper function to call the Outline Cordova plugin.
+function pluginExec<T>(cmd: string, ...args: unknown[]): Promise<T> {
+  return new Promise<T>((resolve, reject) => {
+    cordova.exec(resolve, reject, OUTLINE_PLUGIN_NAME, cmd, args);
+  });
+}
+
+async function pluginExecWithErrorCode<T>(cmd: string, ...args: unknown[]): Promise<T> {
+  try {
+    return await pluginExec<T>(cmd, ...args);
+  } catch (errorCode) {
+    throw errors.fromErrorCode(errorCode);
+  }
+}
+
 // Adds reports from the (native) Cordova plugin.
-export class CordovaErrorReporter extends SentryErrorReporter {
+class CordovaErrorReporter extends SentryErrorReporter {
   constructor(appVersion: string, appBuildNumber: string, dsn: string) {
     super(appVersion, dsn, {'build.number': appBuildNumber});
-    cordova.plugins.outline.log.initialize(dsn).catch(console.error);
+    // Initializes the error reporting framework with the supplied credentials.
+    // TODO(fortuna): This is an Promise that is not waited for and can cause a race condition.
+    // We should fix it with an async factory function for the Reporter.
+    pluginExec<void>('initializeErrorReporting', dsn).catch(console.error);
   }
 
-  async report(userFeedback: string, feedbackCategory: string, userEmail?: string) {
+  async report(userFeedback: string, feedbackCategory: string, userEmail?: string): Promise<void> {
     await super.report(userFeedback, feedbackCategory, userEmail);
-    await cordova.plugins.outline.log.send(sentry.lastEventId() || '');
+    // Sends previously captured logs and events to the error reporting framework.
+    // Associates the report to the provided unique identifier.
+    await pluginExec<void>('reportEvents', sentry.lastEventId() || '');
+  }
+}
+
+class CordovaNativeNetworking implements NativeNetworking {
+  async isServerReachable(hostname: string, port: number) {
+    return await pluginExecWithErrorCode<boolean>('isServerReachable', hostname, port);
+  }
+}
+
+class CordovaTunnel implements Tunnel {
+  constructor(public id: string) {}
+
+  start(config: ShadowsocksSessionConfig) {
+    if (!config) {
+      throw new errors.IllegalServerConfiguration();
+    }
+    return pluginExecWithErrorCode<void>('start', this.id, config);
+  }
+
+  stop() {
+    return pluginExecWithErrorCode<void>('stop', this.id);
+  }
+
+  isRunning() {
+    return pluginExecWithErrorCode<boolean>('isRunning', this.id);
+  }
+
+  onStatusChange(listener: (status: TunnelStatus) => void): void {
+    const onError = (err: unknown) => {
+      console.warn('failed to execute status change listener', err);
+    };
+    // Can't use `pluginExec` because Cordova needs to call the listener multiple times.
+    cordova.exec(listener, onError, OUTLINE_PLUGIN_NAME, 'onStatusChange', [this.id]);
   }
 }
 
 // This class should only be instantiated after Cordova fires the deviceready event.
 class CordovaPlatform implements OutlinePlatform {
   private static isBrowser() {
-    return device.platform === 'browser';
+    return cordova.platformId === 'browser';
   }
 
   hasDeviceSupport() {
     return !CordovaPlatform.isBrowser();
   }
 
-  getPersistentServerFactory() {
-    return (serverId: string, config: ServerConfig, eventQueue: EventQueue) => {
-      return new OutlineServer(
-          serverId, config,
-          this.hasDeviceSupport() ? new cordova.plugins.outline.Tunnel(config, serverId) :
-                                    new FakeOutlineTunnel(config, serverId),
-          eventQueue);
+  getNativeNetworking() {
+    return this.hasDeviceSupport() ? new CordovaNativeNetworking() : new FakeNativeNetworking();
+  }
+
+  getTunnelFactory() {
+    return (id: string) => {
+      return this.hasDeviceSupport() ? new CordovaTunnel(id) : new FakeOutlineTunnel(id);
     };
   }
 
   getUrlInterceptor() {
-    if (device.platform === 'iOS' || device.platform === 'Mac OS X') {
+    if (cordova.platformId === 'ios' || cordova.platformId === 'osx') {
       return new interceptors.AppleUrlInterceptor(appleLaunchUrl);
-    } else if (device.platform === 'Android') {
+    } else if (cordova.platformId === 'android') {
       return new interceptors.AndroidUrlInterceptor();
     }
     console.warn('no intent interceptor available');
@@ -92,23 +156,33 @@ class CordovaPlatform implements OutlinePlatform {
   }
 
   getErrorReporter(env: EnvironmentVariables) {
-    return this.hasDeviceSupport() ?
-        new CordovaErrorReporter(env.APP_VERSION, env.APP_BUILD_NUMBER, env.SENTRY_DSN || '') :
-        new SentryErrorReporter(env.APP_VERSION, env.SENTRY_DSN || '', {});
+    return this.hasDeviceSupport()
+      ? new CordovaErrorReporter(env.APP_VERSION, env.APP_BUILD_NUMBER, env.SENTRY_DSN || '')
+      : new SentryErrorReporter(env.APP_VERSION, env.SENTRY_DSN || '', {});
   }
 
   getUpdater() {
     return new AbstractUpdater();
   }
 
+  getVpnServiceInstaller(): VpnInstaller {
+    return new NoOpVpnInstaller();
+  }
+
   quitApplication() {
     // Only used in macOS because menu bar apps provide no alternative way of quitting.
-    cordova.plugins.outline.quitApplication();
+    cordova.exec(
+      () => {},
+      () => {},
+      OUTLINE_PLUGIN_NAME,
+      'quitApplication',
+      []
+    );
   }
 }
 
 // https://cordova.apache.org/docs/en/latest/cordova/events/events.html#deviceready
-const onceDeviceReady = new Promise((resolve) => {
+const onceDeviceReady = new Promise(resolve => {
   document.addEventListener('deviceready', resolve);
 });
 
